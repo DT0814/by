@@ -3,11 +3,34 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-    <package name="demo1" extends="struts-default" namespace="/">
-        <action name="user_*" class="cn.xawl.by.action.DemoAction" method="{1}">
-            <result name="loginsuccess">/index.htm</result>
-            <result name="login">/login.jsp</result>
+    <package name="by" extends="json-default" namespace="/">
+        <action name="user_*" class="cn.xawl.by.action.UserAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+        <action name="team_*" class="cn.xawl.by.action.TeamAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+        <action name="Ci_*" class="cn.xawl.by.action.CiceroniAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+        <action name="R_*" class="cn.xawl.by.action.RouteAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+        <action name="O_*" class="cn.xawl.by.action.OrderAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+        <action name="TG_*" class="cn.xawl.by.action.TourGroupAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
         </action>
     </package>
-
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <constant name="struts.action.excludePattern" value="/js/.*?"/>
 </struts>
