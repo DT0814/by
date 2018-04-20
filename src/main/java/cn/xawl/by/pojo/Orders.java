@@ -13,6 +13,34 @@ public class Orders implements Serializable {
     private Date fTime;
     private byte status;
     private String tgid;
+    private String statusStr;
+    private String tid;
+    @Id
+    @Column( name = "TID" )
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    @Transient
+    public String getStatusStr() {
+        //订单状态1创建2付款3完成
+        if ( this.getStatus() == 1 ) {
+            this.statusStr = "未支付";
+        } else if ( this.getStatus() == 2 ) {
+            this.statusStr = "已付款";
+        } else if ( this.getStatus() == 3 ) {
+            this.statusStr = "完成";
+        }
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
 
     @Id
     @Column( name = "OID" )
@@ -107,6 +135,16 @@ public class Orders implements Serializable {
         return result;
     }
 
+    @Basic
+    @Column( name = "TGID" )
+    public String getTgid() {
+        return tgid;
+    }
+
+    public void setTgid(String tgid) {
+        this.tgid = tgid;
+    }
+
     @Override
     public String toString() {
         return "Orders{" +
@@ -116,16 +154,7 @@ public class Orders implements Serializable {
                 ", cTime=" + cTime +
                 ", fTime=" + fTime +
                 ", status=" + status +
+                ", tgid='" + tgid + '\'' +
                 '}';
-    }
-
-    @Basic
-    @Column( name = "TGID" )
-    public String getTgid() {
-        return tgid;
-    }
-
-    public void setTgid(String tgid) {
-        this.tgid = tgid;
     }
 }

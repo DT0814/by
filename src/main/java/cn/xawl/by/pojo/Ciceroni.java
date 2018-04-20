@@ -1,9 +1,6 @@
 package cn.xawl.by.pojo;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Ciceroni {
@@ -11,7 +8,24 @@ public class Ciceroni {
     private String name;
     private String introduce;
     private String tid;
-    private Byte status;
+    private Byte status = 0;
+    private String statusStr;
+
+    @Transient
+    public String getStatusStr() {
+        if ( getStatus() == 0 ) {
+            this.statusStr = "未激活";
+        } else if ( getStatus() == 1 ) {
+            this.statusStr = "已停用";
+        } else {
+            this.statusStr = "正常";
+        }
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
 
     @Id
     @Column( name = "CID" )

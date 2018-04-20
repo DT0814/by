@@ -18,8 +18,7 @@ public class TeamService {
     }
 
     public Team addTeam(Team team) {
-        team = teamDao.addTeam(team);
-        return team;
+        return teamDao.addTeam(team);
     }
 
     public int updateTeam(Team team) {
@@ -29,5 +28,13 @@ public class TeamService {
 
     public void delTeam(Team team) {
         teamDao.delTeam(team);
+    }
+
+    public Team findByAccount(String account) {
+        return teamDao.findByAccount(account);
+    }
+
+    public Team findByTid(String tid) {
+        return teamDao.findByTid(tid);
     }
 }

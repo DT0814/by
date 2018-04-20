@@ -27,4 +27,8 @@ public class RouteService {
     public void delete(Route route) {
         routeDao.delete(route);
     }
+
+    public List<Route> findByTid(String tid) {
+        return routeDao.findByTid(tid);
+    }
 }

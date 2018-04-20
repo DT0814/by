@@ -4,12 +4,13 @@ import cn.xawl.by.pojo.Users;
 import cn.xawl.by.service.UserService;
 import cn.xawl.by.utils.Result;
 import cn.xawl.by.utils.Utils;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserAction extends ActionSupport {
@@ -28,7 +29,43 @@ public class UserAction extends ActionSupport {
         return result;
     }
 
-    private HttpServletRequest request;
+
+    /* public void setAccount(String account) {
+         this.user.setAccount(account);
+     }
+
+     public void setPassword(String password) {
+         this.user.setPassword(password);
+     }*/
+
+    public String findByUid() {
+        try {
+            Users u = userService.findByUid(user.getUid());
+            result = Result.success(u);
+            return ActionSupport.SUCCESS;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            result = Result.err(400, "查询失败");
+            return ActionSupport.ERROR;
+        }
+    }
+
+    public String register() {
+        try {
+            System.out.println(user);
+            //校验 未完成
+            user.setUid(Utils.CreateID());
+            user.setStatus((byte) 2);
+            user.setPassword(user.getPassword().split(",")[0]);
+            user = userService.addUser(user);
+            result = Result.success(user);
+            return ActionSupport.SUCCESS;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            result = Result.err(400, "注册失败请联系管理员");
+            return ActionSupport.ERROR;
+        }
+    }
 
     /***
      * 查询所有用户
@@ -113,11 +150,13 @@ public class UserAction extends ActionSupport {
             System.out.println(user);
             Users u = userService.findByAccount(user.getAccount());
             if ( u == null ) {
-                result = Result.success(user);
                 result = Result.err(300, "账号不存在");
             } else if ( user.getPassword().equals(u.getPassword()) ) {
-                request.getSession().setAttribute("user", u);
-                result = Result.success(user);
+                ActionContext context = ActionContext.getContext();
+                Map<String, Object> session = context.getSession();
+                // request.getSession().setAttribute("user", u);
+                session.put("user", u);
+                result = Result.success(u);
             } else {
                 result = Result.err(300, "密码错误");
             }

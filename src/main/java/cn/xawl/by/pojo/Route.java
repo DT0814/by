@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "route")
+@Table( name = "route" )
 public class Route implements Serializable {
     private String rid;
     private String start;
     private String stop;
     private String tid;
+    private String msg;
+
 
     @Id
     @Column( name = "RID" )
@@ -19,6 +21,16 @@ public class Route implements Serializable {
 
     public void setRid(String rid) {
         this.rid = rid;
+    }
+
+    @Basic
+    @Column( name = "msg" )
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     @Basic
@@ -52,36 +64,13 @@ public class Route implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-
-        Route route = (Route) o;
-
-        if ( rid != null ? !rid.equals(route.rid) : route.rid != null ) return false;
-        if ( start != null ? !start.equals(route.start) : route.start != null ) return false;
-        if ( stop != null ? !stop.equals(route.stop) : route.stop != null ) return false;
-        if ( tid != null ? !tid.equals(route.tid) : route.tid != null ) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = rid != null ? rid.hashCode() : 0;
-        result = 31 * result + (start != null ? start.hashCode() : 0);
-        result = 31 * result + (stop != null ? stop.hashCode() : 0);
-        result = 31 * result + (tid != null ? tid.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Route{" +
                 "rid='" + rid + '\'' +
                 ", start='" + start + '\'' +
                 ", stop='" + stop + '\'' +
                 ", tid='" + tid + '\'' +
+                ", msg='" + msg + '\'' +
                 '}';
     }
 }

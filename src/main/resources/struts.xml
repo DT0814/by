@@ -4,6 +4,9 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
     <package name="by" extends="json-default" namespace="/">
+        <interceptors>
+            <interceptor name="LoginInterceptor" class="cn.xawl.by.interceptor.LoginInterceptor"></interceptor>
+        </interceptors>
         <action name="user_*" class="cn.xawl.by.action.UserAction" method="{1}">
             <result name="success" type="json">result</result>
             <result name="error" type="json">result</result>
@@ -21,12 +24,51 @@
             <result name="error" type="json">result</result>
         </action>
         <action name="O_*" class="cn.xawl.by.action.OrderAction" method="{1}">
+            <interceptor-ref name="LoginInterceptor"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success" type="json">result</result>
             <result name="error" type="json">result</result>
         </action>
         <action name="TG_*" class="cn.xawl.by.action.TourGroupAction" method="{1}">
+            <!-- <interceptor-ref name="defaultStack">
+                 <param name="fileUpload.maximumSize">500000000</param>
+                 <param name="fileUpload.allowedTypes">text/plain,application/vnd.ms-powerpoint</param>
+                 <param name="fileUpload.allowedExtensions">.txt,.ppt</param>
+             </interceptor-ref>
+             <interceptor-ref name="defaultStack"></interceptor-ref>-->
             <result name="success" type="json">result</result>
             <result name="error" type="json">result</result>
+        </action>
+        <action name="Ca_*" class="cn.xawl.by.action.CarouselAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+        <action name="Cata_*" class="cn.xawl.by.action.CataLogAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+        <action name="toPage" class="cn.xawl.by.action.PageAction">
+            <result name="user">WEB-INF/user.jsp</result>
+        </action>
+        <action name="ad_*" class="cn.xawl.by.action.AdminAction" method="{1}">
+            <result name="success" type="json">result</result>
+            <result name="error" type="json">result</result>
+        </action>
+    </package>
+    <package name="superAdmin" namespace="/superAdmin" extends="struts-default">
+        <action name="toPage" class="cn.xawl.by.action.SuperPageAction">
+            <result name="userManage">userManage.jsp</result>
+            <result name="catalogManage">catalogManage.jsp</result>
+            <result name="teamManage">teamManage.jsp</result>
+        </action>
+    </package>
+    <package name="admin" namespace="/admin" extends="struts-default">
+        <action name="toPage" class="cn.xawl.by.action.PageAction">
+            <result name="ciceroniManage">ciceroniManage.jsp</result>
+            <result name="routeManage">routeManage.jsp</result>
+            <result name="tourGroupManage">tourGroupManage.jsp</result>
+            <result name="informationManage">informationManage.jsp</result>
+            <result name="orderManage">orderManage.jsp</result>
         </action>
     </package>
     <constant name="struts.i18n.encoding" value="UTF-8"/>

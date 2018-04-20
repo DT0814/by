@@ -40,6 +40,18 @@ public class CiceroniAction extends ActionSupport {
         }
     }
 
+    public String findByTid() {
+        try {
+            List<Ciceroni> list = ciceroniService.findByTid(ciceroni.getTid());
+            result = Result.success(list);
+            return ActionSupport.SUCCESS;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            result = Result.err(400, "查询失败");
+            return ActionSupport.ERROR;
+        }
+    }
+
     public String add() {
         try {
             System.out.println(ciceroni);
@@ -58,7 +70,6 @@ public class CiceroniAction extends ActionSupport {
     public String update() {
         try {
             System.out.println(ciceroni);
-            ciceroni.setCid("123");
             int i = ciceroniService.update(ciceroni);
             if ( i > 0 ) {
                 result = Result.success(ciceroni);

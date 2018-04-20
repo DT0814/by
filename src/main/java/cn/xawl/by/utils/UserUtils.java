@@ -16,20 +16,26 @@ public class UserUtils {
 
     public static String getUpdateString(Users users) {
         StringBuffer sb = new StringBuffer("update Users u set ");
-            if ( users != null ) {
-                if ( users.getPassword() != null ) {
-                    sb.append(",u.password = '" + users.getPassword() + "'");
-                }
-                if ( users.getAccount() != null ) {
-                    sb.append(",u.account = '" + users.getAccount() + "'");
-                }
-                if ( users.getStatus() != 0 ) {
-                    sb.append(",u.status = " + users.getStatus());
-                }
-                sb.append("    where u.uid=" + users.getUid());
-                String res = sb.toString();
-                res = res.replaceFirst(",", "  ");
-                return res;
+        if ( users != null ) {
+            if ( users.getName() != null ) {
+                sb.append(",u.name = '" + users.getName() + "'");
+            }
+            if ( users.getGd() != null ) {
+                sb.append(",u.gd = '" + users.getGd() + "'");
+            }
+            if ( users.getPassword() != null ) {
+                sb.append(",u.password = '" + users.getPassword() + "'");
+            }
+            if ( users.getAccount() != null ) {
+                sb.append(",u.account = '" + users.getAccount() + "'");
+            }
+            if ( users.getStatus() != 0 ) {
+                sb.append(",u.status = " + users.getStatus());
+            }
+            sb.append("    where u.uid=" + users.getUid());
+            String res = sb.toString();
+            res = res.replaceFirst(",", "  ");
+            return res;
         } else {
             return null;
         }

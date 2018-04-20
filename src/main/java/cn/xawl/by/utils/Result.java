@@ -6,6 +6,10 @@ public class Result {
     private String msg;
     private Object data;
 
+    public Result() {
+
+    }
+
     public Result(int code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
@@ -54,5 +58,14 @@ public class Result {
 
     public static Result err(int code, String msg) {
         return new Result(code, msg, null);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

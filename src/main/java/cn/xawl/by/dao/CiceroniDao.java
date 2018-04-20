@@ -18,14 +18,17 @@ public class CiceroniDao {
 
     public List<Ciceroni> findAll() {
         session = sessionFactory.openSession();
-        Query query = session.createQuery("from Ciceroni ");
-        return query.list();
+        Query query = session.createQuery("from Ciceroni where status=2");
+        List list = query.list();
+        session.close();
+        return list;
     }
 
     public Ciceroni add(Ciceroni ciceroni) {
         session = sessionFactory.openSession();
         session.save(ciceroni);
         session.flush();
+        session.close();
         return ciceroni;
     }
 
@@ -33,6 +36,7 @@ public class CiceroniDao {
         session = sessionFactory.openSession();
         Query query = session.createQuery(CiceroniUtils.getUpdateString(ciceroni));
         int i = query.executeUpdate();
+        session.close();
         return i;
     }
 
@@ -40,5 +44,14 @@ public class CiceroniDao {
         session = sessionFactory.openSession();
         session.delete(ciceroni);
         session.flush();
+        session.close();
+    }
+
+    public List<Ciceroni> findByTid(String tid) {
+        session = sessionFactory.openSession();
+        Query query = session.createQuery("from Ciceroni where tid='" + tid + "'");
+        List list = query.list();
+        session.close();
+        return list;
     }
 }

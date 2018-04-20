@@ -20,6 +20,7 @@ public class TeamDao {
         session = sessionFactory.openSession();
         Query query = session.createQuery("from  Team ");
         List<Team> list = query.list();
+        session.close();
         return list;
     }
 
@@ -27,6 +28,7 @@ public class TeamDao {
         session = sessionFactory.openSession();
         session.save(team);
         session.flush();
+        session.close();
         return team;
     }
 
@@ -36,6 +38,7 @@ public class TeamDao {
         System.out.println(sql);
         Query q = session.createQuery(sql);
         int i = q.executeUpdate();
+        session.close();
         return i;
     }
 
@@ -43,5 +46,23 @@ public class TeamDao {
         session = sessionFactory.openSession();
         session.delete(team);
         session.flush();
+        session.close();
     }
+
+    public Team findByAccount(String account) {
+        session = sessionFactory.openSession();
+        Query query = session.createQuery("from  Team  t where t.account='" + account + "'");
+        Team t = (Team) query.uniqueResult();
+        session.close();
+        return t;
+    }
+
+    public Team findByTid(String tid) {
+        session = sessionFactory.openSession();
+        Query query = session.createQuery("from  Team  t where t.tid='" + tid + "'");
+        Team t = (Team) query.uniqueResult();
+        session.close();
+        return t;
+    }
+
 }

@@ -107,7 +107,7 @@
     导游id：<input type="text" name="tourGroup.cid">
     团队ID <input type="text" name="tourGroup.tid">
     原价 <input type="text" name="tourGroup.price">
-    优惠价格<input type="text" name="tourGroup.fPrice">
+    优惠价格<input type="text" name="tourGroup.Fprice">
     开团时间<input type="text" name="tourGroup.time">
     限定人数<input type="text" name="tourGroup.limit">
     已报名人数<input type="text" name="tourGroup.real">
@@ -120,11 +120,12 @@
     导游id：<input type="text" name="tourGroup.cid"/>
     团队ID <input type="text" name="tourGroup.tid">
     原价 <input type="text" name="tourGroup.price">
-    优惠价格<input type="text" name="tourGroup.fPrice"/>
+    优惠价格<input type="text" name="tourGroup.Fprice"/>
     开团时间<input type="text" name="tourGroup.time"/>
     限定人数<input type="text" name="tourGroup.limit"/>
     已报名人数<input type="text" name="tourGroup.real"/>
     团名字<input type="text" name="tourGroup.name"/>
+    <input type="submit" value="提交"/>
 </form>
 <%--付款
 <form action="/TG_POrder.action" method="post">

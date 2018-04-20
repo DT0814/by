@@ -27,4 +27,8 @@ public class CiceroniService {
     public void delete(Ciceroni ciceroni) {
         ciceroniDao.delete(ciceroni);
     }
+
+    public List<Ciceroni> findByTid(String tid) {
+        return ciceroniDao.findByTid(tid);
+    }
 }

@@ -1,23 +1,59 @@
 package cn.xawl.by.pojo;
 
+import cn.xawl.by.utils.DateUtils;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table( name = "tour_group", schema = "by" )
-public class TourGroup implements Serializable {
+public class TourGroup {
     private String tgid;
     private String cid;
     private String tid;
     private Integer limit;
-    private Integer real;
-    private Date time;
-    private Float price;
-    private Float fPrice;
+    private Integer real = 0;
+    private Date time = new Date();
+    private Float price = 0.0F;
+    private Float fprice;
     private byte status;
     private String name;
+    private String rid;
+    //用于查询传参数的属性
+    private String findCondition;
+    private String timeStr;
+    private int caid;
 
+    @Basic
+    @Column( name = "img" )
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    private String img;
+
+    //未完成
+    @Transient
+    public String getTimeStr() {
+        return DateUtils.dateToString(new Date(time.getTime()));
+    }
+
+    public void setTimeStr(String timeStr) {
+        this.timeStr = "";
+    }
+
+    @Transient
+    public String getFindCondition() {
+        return findCondition;
+    }
+
+    public void setFindCondition(String findCondition) {
+        this.findCondition = findCondition;
+    }
 
     @Id
     @Column( name = "TGID" )
@@ -27,6 +63,16 @@ public class TourGroup implements Serializable {
 
     public void setTgid(String tgid) {
         this.tgid = tgid;
+    }
+
+    @Basic
+    @Column( name = "RID" )
+    public String getRid() {
+        return rid;
+    }
+
+    public void setRid(String rid) {
+        this.rid = rid;
     }
 
     @Basic
@@ -71,7 +117,6 @@ public class TourGroup implements Serializable {
 
     @Basic
     @Column( name = "`time`" )
-    @Temporal( TemporalType.TIMESTAMP )
     public Date getTime() {
         return time;
     }
@@ -81,7 +126,7 @@ public class TourGroup implements Serializable {
     }
 
     @Basic
-    @Column( name = "price" )
+    @Column( name = "`price`" )
     public Float getPrice() {
         return price;
     }
@@ -91,13 +136,13 @@ public class TourGroup implements Serializable {
     }
 
     @Basic
-    @Column( name = "fPrice" )
-    public Float getfPrice() {
-        return fPrice;
+    @Column( name = "fprice" )
+    public Float getFprice() {
+        return fprice;
     }
 
-    public void setfPrice(Float fPrice) {
-        this.fPrice = fPrice;
+    public void setFprice(Float fprice) {
+        this.fprice = fprice;
     }
 
     @Basic
@@ -110,42 +155,24 @@ public class TourGroup implements Serializable {
         this.status = status;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-
-        TourGroup tourGroup = (TourGroup) o;
-
-        if ( Double.compare(tourGroup.price, price) != 0 ) return false;
-        if ( Double.compare(tourGroup.fPrice, fPrice) != 0 ) return false;
-        if ( status != tourGroup.status ) return false;
-        if ( tgid != null ? !tgid.equals(tourGroup.tgid) : tourGroup.tgid != null ) return false;
-        if ( cid != null ? !cid.equals(tourGroup.cid) : tourGroup.cid != null ) return false;
-        if ( tid != null ? !tid.equals(tourGroup.tid) : tourGroup.tid != null ) return false;
-        if ( limit != null ? !limit.equals(tourGroup.limit) : tourGroup.limit != null ) return false;
-        if ( real != null ? !real.equals(tourGroup.real) : tourGroup.real != null ) return false;
-        if ( time != null ? !time.equals(tourGroup.time) : tourGroup.time != null ) return false;
-
-        return true;
+    @Basic
+    @Column( name = "`name`" )
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = tgid != null ? tgid.hashCode() : 0;
-        result = 31 * result + (cid != null ? cid.hashCode() : 0);
-        result = 31 * result + (tid != null ? tid.hashCode() : 0);
-        result = 31 * result + (limit != null ? limit.hashCode() : 0);
-        result = 31 * result + (real != null ? real.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
-        temp = Double.doubleToLongBits(price);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(fPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (int) status;
-        return result;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Basic
+    @Column( name = "caid" )
+    public int getCaid() {
+        return caid;
+    }
+
+    public void setCaid(int caid) {
+        this.caid = caid;
     }
 
     @Override
@@ -158,18 +185,13 @@ public class TourGroup implements Serializable {
                 ", real=" + real +
                 ", time=" + time +
                 ", price=" + price +
-                ", fPrice=" + fPrice +
+                ", fprice=" + fprice +
                 ", status=" + status +
+                ", name='" + name + '\'' +
+                ", rid='" + rid + '\'' +
+                ", findCondition='" + findCondition + '\'' +
+                ", timeStr='" + timeStr + '\'' +
+                ", caid='" + caid + '\'' +
                 '}';
-    }
-
-    @Basic
-    @Column( name = "name" )
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

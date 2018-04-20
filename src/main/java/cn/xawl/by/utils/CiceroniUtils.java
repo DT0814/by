@@ -9,6 +9,9 @@ public class CiceroniUtils {
             if ( ciceroni.getName() != null ) {
                 sb.append(" ,c.name = '" + ciceroni.getName() + "'");
             }
+            if ( ciceroni.getStatus() != null && ciceroni.getStatus() != 0 ) {
+                sb.append(" ,c.status = '" + ciceroni.getStatus() + "'");
+            }
             if ( ciceroni.getIntroduce() != null ) {
                 sb.append(" ,c.introduce = '" + ciceroni.getIntroduce() + "'");
             }

@@ -30,6 +30,9 @@
         <mapping class="cn.xawl.by.pojo.TourGroup"/>
         <mapping class="cn.xawl.by.pojo.Orders"/>
         <mapping class="cn.xawl.by.pojo.Users"/>
+        <mapping class="cn.xawl.by.pojo.Carousel"/>
+        <mapping class="cn.xawl.by.pojo.Catalog"/>
+        <mapping class="cn.xawl.by.pojo.Admin"/>
     </session-factory>
 
 </hibernate-configuration>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class OrderAction extends ActionSupport {
@@ -17,6 +18,11 @@ public class OrderAction extends ActionSupport {
 
     private Result result;
     private Orders order = new Orders();
+    private String uid;
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public Orders getOrder() {
         return order;
@@ -26,16 +32,63 @@ public class OrderAction extends ActionSupport {
         return result;
     }
 
+    public String findByOid() {
+        try {
+            List list = orderService.findByOid(order.getOid());
+            result = Result.success(list);
+            return ActionSupport.SUCCESS;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            result = Result.err(400, "查询失败");
+            return ActionSupport.ERROR;
+        }
+    }
+
+    public String findByUid() {
+        try {
+            if ( uid == null || uid.equals("null") ) {
+                result = Result.success(300, "您还未登录");
+                return ActionSupport.SUCCESS;
+            }
+            List list = orderService.findByUid(uid);
+            result = Result.success(list);
+            return ActionSupport.SUCCESS;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            result = Result.err(400, "查询失败");
+            return ActionSupport.ERROR;
+        }
+    }
+
+    public String findByTid() {
+        try {
+            List list = orderService.findByTid(order.getTid());
+            result = Result.success(list);
+            return ActionSupport.SUCCESS;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            result = Result.err(400, "查询失败");
+            return ActionSupport.ERROR;
+        }
+    }
+
     /**
-     * 创建订单(为订单添加订单ID设置订单创建时间 设置订单状态为0 代表订单属于创建状态)
+     * 创建订单(为订单添加订单ID设置订单创建时间 设置订单状态为1 代表订单属于创建状态)
      *
      * @return
      */
     public String createOrder() {
         try {
+            //通过拦截器将cookie中 的user_id 通过反射注入到uid中 如果为null说明未登录
+            if ( uid == null || uid.equals("null") ) {
+                result = Result.success(300, "您还未登录");
+                return ActionSupport.SUCCESS;
+            }
             System.out.println(order);
+            order.setUid(uid);
             order.setStatus((byte) 1);
             order.setcTime(new Date());
+            order.setfTime(new Date(0));
             order.setOid(Utils.CreateID());
             order = orderService.createOrder(order);
             System.out.println(order);
@@ -48,7 +101,7 @@ public class OrderAction extends ActionSupport {
     }
 
     /**
-     * 订单支付将订单状态置为1 表示订单已付款
+     * 订单支付将订单状态置为2 表示订单已付款
      *
      * @return
      */

@@ -37,6 +37,18 @@ public class RouteAction extends ActionSupport {
         }
     }
 
+    public String findByTid() {
+        try {
+            List<Route> list = routeService.findByTid(route.getTid());
+            result = Result.success(list);
+            return ActionSupport.SUCCESS;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            result = Result.err(400, "查询失败");
+            return ActionSupport.ERROR;
+        }
+    }
+
     public String add() {
         try {
             System.out.println(route);
@@ -54,7 +66,6 @@ public class RouteAction extends ActionSupport {
     public String update() {
         try {
             System.out.println(route);
-            route.setRid(123 + "");
             int i = routeService.update(route);
             if ( i > 0 ) {
                 result = Result.success(route);

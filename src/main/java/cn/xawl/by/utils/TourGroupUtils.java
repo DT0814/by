@@ -11,14 +11,14 @@ public class TourGroupUtils {
             if ( tourGroup.getStatus() != 0 ) {
                 sb.append(" ,t.status = '" + tourGroup.getStatus() + "'");
             }
-            if ( tourGroup.getName() != null ) {
+            if ( tourGroup.getName() != null && !tourGroup.getName().equals("") ) {
                 sb.append(" ,t.name = '" + tourGroup.getName() + "'");
             }
             if ( tourGroup.getTime() != null ) {
-                sb.append(" ,t.time = '" + tourGroup.getTime() + "'");
+                sb.append(" ,t.time = '" + DateUtils.getDateString(tourGroup.getTime()) + "'");
             }
-            if ( tourGroup.getfPrice() != null ) {
-                sb.append(" ,t.fPrice = '" + tourGroup.getfPrice() + "'");
+            if ( tourGroup.getFprice() != null ) {
+                sb.append(" ,t.fprice = '" + tourGroup.getFprice() + "'");
             }
             if ( tourGroup.getPrice() != null ) {
                 sb.append(" ,t.price = '" + tourGroup.getPrice() + "'");
@@ -29,11 +29,16 @@ public class TourGroupUtils {
             if ( tourGroup.getReal() != null ) {
                 sb.append(" ,t.real = '" + tourGroup.getReal() + "'");
             }
-            if ( tourGroup.getTid() != null ) {
+            if ( tourGroup.getTid() != null && !tourGroup.getTid().equals("") ) {
                 sb.append(" ,t.tid = '" + tourGroup.getTid() + "'");
             }
-
-            sb.append("  where t.tgid=" + tourGroup.getTgid());
+            if ( tourGroup.getCid() != null && !tourGroup.getCid().equals("") ) {
+                sb.append(" ,t.cid = '" + tourGroup.getCid() + "'");
+            }
+            if ( tourGroup.getRid() != null && !tourGroup.getRid().equals("") ) {
+                sb.append(" ,t.rid = '" + tourGroup.getRid() + "'");
+            }
+            sb.append("  where t.tgid= '" + tourGroup.getTgid() + "'");
             String res = sb.toString();
             res = res.replaceFirst(",", "");
             System.out.println(res);

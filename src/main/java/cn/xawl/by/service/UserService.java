@@ -37,4 +37,9 @@ public class UserService {
         Users user = userDao.findByAccount(account);
         return user;
     }
+
+    public Users findByUid(String uid) {
+        Users user = userDao.findByUid(uid);
+        return user;
+    }
 }
